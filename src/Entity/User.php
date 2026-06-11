@@ -12,6 +12,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
@@ -19,15 +20,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use UuidEntityTrait;
 
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    #[Assert\Length(max: 255)]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $passwordHash = null;
 
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $phone = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
@@ -37,9 +45,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $is2faEnabled = false;
 
+    #[Assert\Length(max: 10)]
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $preferredLanguage = null;
 
+    #[Assert\Currency]
     #[ORM\Column(length: 10, nullable: true)]
     private ?string $preferredCurrency = null;
 

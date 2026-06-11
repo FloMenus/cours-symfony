@@ -1,0 +1,12 @@
+<div class="h-full min-h-full rounded-3xl bg-slate-900 p-3 shadow-sm">
+    <nav class="space-y-1">
+        {% for item in menu_items %}
+            <a href="{{ item.href }}" class="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition {{ active_route == item.route ? 'bg-white text-slate-900' : 'text-slate-200 hover:bg-slate-800 hover:text-white' }}">
+                <span>{{ item.label }}</span>
+                {% if active_route == item.route %}
+                    <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </nav>
+</div>

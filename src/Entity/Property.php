@@ -10,51 +10,78 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[APIResource(
+    normalizationContext: ['groups' => ['property']]
+)]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
 #[ORM\Table(name: 'properties')]
 class Property
 {
     use UuidEntityTrait;
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(inversedBy: 'properties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $host = null;
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(inversedBy: 'properties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CancellationPolicy $cancellationPolicy = null;
 
+    #[Group('property')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 255)]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
+    #[Assert\Length(max: 5000)]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $propertyType = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $maxGuests = null;
 
+    #[Assert\NotNull]
+    #[Assert\PositiveOrZero]
     #[ORM\Column]
     private ?int $bedrooms = null;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $beds = null;
 
+    #[Assert\NotNull]
+    #[Assert\PositiveOrZero]
     #[ORM\Column]
     private ?int $bathrooms = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $pricePerNight = null;
 
+    #[Assert\PositiveOrZero]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $cleaningFee = null;
 
+    #[Assert\PositiveOrZero]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $securityDeposit = null;
 

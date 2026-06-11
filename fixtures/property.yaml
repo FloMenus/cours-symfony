@@ -1,0 +1,105 @@
+App\Entity\Property:
+  property_annecy_lake:
+    host: '@host_user_1'
+    cancellationPolicy: '@cancellation_policy_flexible'
+    title: Chalet vue lac à Annecy
+    description: Séjour premium au bord du lac, idéal pour un week-end nature.
+    propertyType: chalet
+    status: published
+    maxGuests: 6
+    bedrooms: 3
+    beds: 4
+    bathrooms: 2
+    pricePerNight: 185.00
+    cleaningFee: 35.00
+    securityDeposit: 300.00
+    instantBooking: true
+    createdAt: <dateTimeBetween('-20 days', '-10 days')>
+
+  property_bordeaux_loft:
+    host: '@host_user_2'
+    cancellationPolicy: '@cancellation_policy_moderate'
+    title: Loft design au coeur de Bordeaux
+    description: Appartement lumineux proche tram et quais, parfait city break.
+    propertyType: loft
+    status: published
+    maxGuests: 4
+    bedrooms: 2
+    beds: 2
+    bathrooms: 1
+    pricePerNight: 149.00
+    cleaningFee: 28.00
+    securityDeposit: 250.00
+    instantBooking: false
+    createdAt: <dateTimeBetween('-18 days', '-8 days')>
+
+  property_biarritz_house:
+    host: '@host_user_3'
+    cancellationPolicy: '@cancellation_policy_flexible'
+    title: Maison surf à Biarritz
+    description: Maison familiale avec terrasse, 2 min de la plage.
+    propertyType: house
+    status: published
+    maxGuests: 8
+    bedrooms: 4
+    beds: 5
+    bathrooms: 2
+    pricePerNight: 220.00
+    cleaningFee: 40.00
+    securityDeposit: 400.00
+    instantBooking: true
+    createdAt: <dateTimeBetween('-12 days', '-3 days')>
+
+  property_paris_studio_draft:
+    host: '@host_user_1'
+    cancellationPolicy: '@cancellation_policy_moderate'
+    title: Studio cosy à Montmartre
+    description: Petit studio en cours de publication.
+    propertyType: studio
+    status: draft
+    maxGuests: 2
+    bedrooms: 1
+    beds: 1
+    bathrooms: 1
+    pricePerNight: 99.00
+    cleaningFee: 20.00
+    securityDeposit: 150.00
+    instantBooking: false
+    createdAt: <dateTimeBetween('-7 days', '-1 days')>
+
+App\Entity\PropertyAddress:
+  property_address_annecy:
+    property: '@property_annecy_lake'
+    country: France
+    city: Annecy
+    postalCode: '74000'
+    addressLine1: 12 promenade du lac
+    latitude: 45.8992470
+    longitude: 6.1293840
+
+  property_address_bordeaux:
+    property: '@property_bordeaux_loft'
+    country: France
+    city: Bordeaux
+    postalCode: '33000'
+    addressLine1: 5 quai des Chartrons
+    latitude: 44.8508500
+    longitude: -0.5666700
+
+  property_address_biarritz:
+    property: '@property_biarritz_house'
+    country: France
+    city: Biarritz
+    postalCode: '64200'
+    addressLine1: 18 avenue de la Milady
+    latitude: 43.4685200
+    longitude: -1.5570300
+
+  property_address_paris:
+    property: '@property_paris_studio_draft'
+    country: France
+    city: Paris
+    postalCode: '75018'
+    addressLine1: 9 rue des Abbesses
+    latitude: 48.8840600
+    longitude: 2.3380500

@@ -1,0 +1,21 @@
+{% extends 'common/base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen bg-slate-100 text-slate-900">
+        {% block admin_header %}
+            {% include 'admin/partials/header.html.twig' %}
+        {% endblock %}
+
+        <div class="mx-auto flex min-h-[calc(100vh-81px)] max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:px-8">
+            <aside class="hidden w-72 shrink-0 self-stretch lg:block">
+                {% block admin_sidebar %}{% endblock %}
+            </aside>
+
+            <main class="min-w-0 flex-1">
+                {% block admin_content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+{% endblock %}

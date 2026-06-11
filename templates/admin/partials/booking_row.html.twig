@@ -1,0 +1,9 @@
+<tr class="border-t border-slate-100">
+    <td class="px-4 py-3 text-sm font-semibold text-slate-900">{{ row.reference }}</td>
+    <td class="px-4 py-3 text-sm text-slate-600">{{ row.guest }}</td>
+    <td class="px-4 py-3 text-sm text-slate-600">{{ row.property }}</td>
+    <td class="px-4 py-3 text-sm text-slate-600">{{ row.amount }}</td>
+    <td class="px-4 py-3 text-sm">
+        <span class="inline-flex rounded-full px-3 py-1 text-xs font-bold {{ row.status == 'Confirmée' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700' }}">{{ row.status }}</span>
+    </td>
+</tr>

@@ -1,0 +1,13 @@
+{% extends 'common/base.html.twig' %}
+
+{% block title %}Airstay · Des logements uniques partout dans le monde{% endblock %}
+
+{% block body %}
+    <div class="min-h-screen bg-white text-[#222222]">
+        {% block user_header %}{% endblock %}
+        <main>
+            {% block user_content %}{% endblock %}
+        </main>
+        {% block user_footer %}{% endblock %}
+    </div>
+{% endblock %}

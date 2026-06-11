@@ -1,0 +1,47 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Dashboard admin{% endblock %}
+
+{% block admin_sidebar %}
+    {% include 'admin/partials/sidebar.html.twig' with {
+        menu_items: menu_items,
+        active_route: active_route
+    } only %}
+{% endblock %}
+
+{% block admin_content %}
+    <section>
+        <h2 class="text-2xl font-black tracking-tight text-slate-900">Indicateurs clés</h2>
+        <p class="mt-1 text-sm text-slate-600">Aperçu des performances de la plateforme sur les 30 derniers jours.</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {% for stat in stats %}
+                {% include 'admin/partials/stat_card.html.twig' with { stat: stat } only %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="mt-8 rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div class="flex items-center justify-between px-5 py-4">
+            <h3 class="text-lg font-black text-slate-900">Dernières réservations</h3>
+            <a href="#" class="text-sm font-semibold text-slate-600 hover:text-slate-900">Voir tout</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full">
+                <thead>
+                    <tr class="border-y border-slate-100 bg-slate-50">
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Référence</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Voyageur</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Logement</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Montant</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in recent_bookings %}
+                        {% include 'admin/partials/booking_row.html.twig' with { row: row } only %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}

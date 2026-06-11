@@ -1,0 +1,76 @@
+{% extends 'user/layout.html.twig' %}
+
+{% block title %}{{ reservation.property.title }} · Airstay{% endblock %}
+
+{% block user_header %}
+    {% include 'user/partials/header.html.twig' %}
+{% endblock %}
+
+{% block user_content %}
+<div class="mx-auto max-w-[700px] px-6 py-10 lg:px-10">
+
+    <a href="{{ path('reservation_list') }}" class="flex items-center gap-2 text-sm font-semibold text-[#222222] hover:text-[#717171] mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Voyages
+    </a>
+
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-semibold text-[#222222]">
+            <a href="{{ path('property_show', { id: reservation.property.id }) }}" class="hover:underline">
+                {{ reservation.property.title }}
+            </a>
+        </h1>
+        <span class="rounded-full px-3 py-1 text-xs font-semibold
+            {% if reservation.status == 'confirmed' %}bg-green-100 text-green-700
+            {% elseif reservation.status == 'completed' %}bg-[#F7F7F7] text-[#717171]
+            {% elseif reservation.status == 'cancelled' %}bg-red-50 text-red-500
+            {% else %}bg-yellow-50 text-yellow-600{% endif %}">
+            {{ reservation.status|capitalize }}
+        </span>
+    </div>
+
+    <div class="rounded-xl border border-[#DDDDDD] divide-y divide-[#DDDDDD]">
+        <div class="flex justify-between px-5 py-4 text-sm">
+            <span class="text-[#717171]">Arrivée</span>
+            <strong class="text-[#222222]">{{ reservation.checkinDate|date('d/m/Y') }}</strong>
+        </div>
+        <div class="flex justify-between px-5 py-4 text-sm">
+            <span class="text-[#717171]">Départ</span>
+            <strong class="text-[#222222]">{{ reservation.checkoutDate|date('d/m/Y') }}</strong>
+        </div>
+        <div class="flex justify-between px-5 py-4 text-sm">
+            <span class="text-[#717171]">Voyageurs</span>
+            <strong class="text-[#222222]">{{ reservation.guestsCount }}</strong>
+        </div>
+        <div class="flex justify-between px-5 py-4 text-sm">
+            <span class="text-[#717171]">Prix / nuit</span>
+            <strong class="text-[#222222]">{{ reservation.property.pricePerNight }}€</strong>
+        </div>
+        {% if reservation.cleaningFee %}
+            <div class="flex justify-between px-5 py-4 text-sm">
+                <span class="text-[#717171]">Frais de ménage</span>
+                <strong class="text-[#222222]">{{ reservation.cleaningFee }}€</strong>
+            </div>
+        {% endif %}
+        {% if reservation.serviceFee %}
+            <div class="flex justify-between px-5 py-4 text-sm">
+                <span class="text-[#717171]">Frais de service</span>
+                <strong class="text-[#222222]">{{ reservation.serviceFee }}€</strong>
+            </div>
+        {% endif %}
+        <div class="flex justify-between px-5 py-4 text-sm">
+            <span class="font-semibold text-[#222222]">Total</span>
+            <strong class="text-[#222222]">{{ reservation.totalPrice }}€</strong>
+        </div>
+        {% if reservation.cancellationReason %}
+            <div class="px-5 py-4 text-sm">
+                <p class="text-[#717171] mb-1">Raison d'annulation</p>
+                <p class="italic text-[#222222]">{{ reservation.cancellationReason }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

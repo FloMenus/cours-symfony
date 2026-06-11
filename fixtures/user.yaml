@@ -1,0 +1,38 @@
+App\Entity\CancellationPolicy:
+  cancellation_policy_flexible:
+    code: flexible
+    label: Flexible
+    description: Annulation gratuite jusqu'à 24h avant l'arrivée.
+
+  cancellation_policy_moderate:
+    code: moderate
+    label: Moderate
+    description: Remboursement partiel jusqu'à 5 jours avant l'arrivée.
+
+App\Entity\User:
+  host_user_1:
+    email: host1@example.com
+    passwordHash: host1-password
+    phone: '+33610000001'
+    status: active
+    isEmailVerified: true
+    preferredLanguage: fr
+    preferredCurrency: EUR
+
+  host_user_2:
+    email: host2@example.com
+    passwordHash: host2-password
+    phone: '+33610000002'
+    status: active
+    isEmailVerified: true
+    preferredLanguage: fr
+    preferredCurrency: EUR
+
+  host_user_3:
+    email: host3@example.com
+    passwordHash: host3-password
+    phone: '+33610000003'
+    status: active
+    isEmailVerified: true
+    preferredLanguage: fr
+    preferredCurrency: EUR

@@ -1,0 +1,59 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Historique des réservations{% endblock %}
+
+{% block admin_sidebar %}
+    {% include 'admin/partials/sidebar.html.twig' with {
+        menu_items: menu_items,
+        active_route: active_route
+    } only %}
+{% endblock %}
+
+{% block admin_content %}
+    <h2 class="text-2xl font-black tracking-tight text-slate-900">Historique des réservations</h2>
+    <p class="mt-1 text-sm text-slate-600">Toutes les réservations de la plateforme, triées par date d'arrivée.</p>
+
+    <div class="mt-6 rounded-3xl border border-slate-200 bg-white shadow-sm overflow-x-auto">
+        {% if reservations is empty %}
+            <p class="px-6 py-8 text-sm text-slate-500">Aucune réservation enregistrée.</p>
+        {% else %}
+            <table class="min-w-full">
+                <thead>
+                    <tr class="border-b border-slate-100 bg-slate-50">
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Logement</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Voyageur</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Arrivée</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Départ</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Montant</th>
+                        <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500">Statut</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for reservation in reservations %}
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-4 py-3 text-sm font-semibold text-slate-900">
+                                <a href="{{ path('property_show', { id: reservation.property.id }) }}"
+                                   class="hover:text-coral-500">
+                                    {{ reservation.property.title }}
+                                </a>
+                            </td>
+                            <td class="px-4 py-3 text-sm text-slate-600">{{ reservation.guest.email }}</td>
+                            <td class="px-4 py-3 text-sm text-slate-600">{{ reservation.checkinDate|date('d/m/Y') }}</td>
+                            <td class="px-4 py-3 text-sm text-slate-600">{{ reservation.checkoutDate|date('d/m/Y') }}</td>
+                            <td class="px-4 py-3 text-sm font-bold text-slate-900">{{ reservation.totalPrice }}€</td>
+                            <td class="px-4 py-3">
+                                <span class="inline-block rounded-full px-3 py-1 text-xs font-semibold
+                                    {% if reservation.status == 'confirmed' %}bg-emerald-100 text-emerald-700
+                                    {% elseif reservation.status == 'completed' %}bg-slate-100 text-slate-600
+                                    {% elseif reservation.status == 'cancelled' %}bg-red-100 text-red-600
+                                    {% else %}bg-amber-100 text-amber-700{% endif %}">
+                                    {{ reservation.status }}
+                                </span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

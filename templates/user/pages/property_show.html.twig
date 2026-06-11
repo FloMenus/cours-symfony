@@ -1,0 +1,246 @@
+{% extends 'user/layout.html.twig' %}
+
+{% block title %}{{ property.title }} · Airstay{% endblock %}
+
+{% block user_header %}
+    {% include 'user/partials/header.html.twig' %}
+{% endblock %}
+
+{% block user_content %}
+<div class="mx-auto max-w-[1120px] px-6 py-8 lg:px-10">
+
+    <div class="flex items-start justify-between gap-4">
+        <h1 class="text-[26px] font-semibold text-[#222222] leading-tight">{{ property.title }}</h1>
+        <div class="flex shrink-0 items-center gap-1">
+            <button class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-[#222222] underline hover:bg-[#F7F7F7] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+                Partager
+            </button>
+            <button class="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-[#222222] underline hover:bg-[#F7F7F7] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"/>
+                </svg>
+                Enregistrer
+            </button>
+        </div>
+    </div>
+
+    <div class="relative mt-4 overflow-hidden rounded-xl">
+        <div class="grid h-[420px] grid-cols-2 gap-2">
+            <div class="bg-[#EBEBEB] flex items-center justify-center text-[#AAAAAA] text-sm font-medium rounded-l-xl">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <div class="grid grid-cols-2 grid-rows-2 gap-2">
+                <div class="bg-[#DDDDDD]"></div>
+                <div class="bg-[#DDDDDD] rounded-tr-xl"></div>
+                <div class="bg-[#DDDDDD]"></div>
+                <div class="bg-[#DDDDDD] rounded-br-xl"></div>
+            </div>
+        </div>
+        <button class="absolute bottom-4 right-4 flex items-center gap-2 rounded-lg border border-[#222222] bg-white px-3 py-1.5 text-xs font-semibold text-[#222222] hover:bg-[#F7F7F7] shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/>
+            </svg>
+            Voir toutes les photos
+        </button>
+    </div>
+
+    <div class="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_380px]">
+
+        <div>
+            <div class="flex items-center justify-between border-b border-[#DDDDDD] pb-6">
+                <div>
+                    <h2 class="text-xl font-semibold text-[#222222]">{{ property.propertyType|capitalize }} entier · hébergé par un hôte</h2>
+                    <p class="mt-1 text-[#717171]">
+                        {{ property.maxGuests }} voyageur{{ property.maxGuests > 1 ? 's' : '' }} ·
+                        {{ property.bedrooms }} chambre{{ property.bedrooms > 1 ? 's' : '' }} ·
+                        {{ property.beds }} lit{{ property.beds > 1 ? 's' : '' }} ·
+                        {{ property.bathrooms }} salle{{ property.bathrooms > 1 ? 's' : '' }} de bain
+                    </p>
+                </div>
+                <div class="h-12 w-12 shrink-0 rounded-full bg-[#EBEBEB] flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[#717171]" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="border-b border-[#DDDDDD] py-6 space-y-5">
+                {% if property.instantBooking %}
+                    <div class="flex items-start gap-4">
+                        <span class="text-2xl mt-0.5">⚡</span>
+                        <div>
+                            <p class="font-semibold text-[#222222]">Réservation instantanée</p>
+                            <p class="text-sm text-[#717171]">Réservez sans attendre la confirmation de l'hôte.</p>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-0.5">🏅</span>
+                    <div>
+                        <p class="font-semibold text-[#222222]">Logement certifié</p>
+                        <p class="text-sm text-[#717171]">Ce logement a été vérifié par notre équipe.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <span class="text-2xl mt-0.5">🔑</span>
+                    <div>
+                        <p class="font-semibold text-[#222222]">Arrivée autonome</p>
+                        <p class="text-sm text-[#717171]">Accédez au logement sans avoir à rencontrer l'hôte.</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if property.description %}
+                <div class="border-b border-[#DDDDDD] py-6">
+                    <p class="text-[#222222] leading-relaxed">{{ property.description }}</p>
+                </div>
+            {% endif %}
+
+            <div class="border-b border-[#DDDDDD] py-6">
+                <h3 class="text-xl font-semibold text-[#222222] mb-4">Ce que propose ce logement</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex items-center gap-3 text-sm text-[#222222]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#222222]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        {{ property.beds }} lit{{ property.beds > 1 ? 's' : '' }}
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-[#222222]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        {{ property.bathrooms }} salle{{ property.bathrooms > 1 ? 's' : '' }} de bain
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-[#222222]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        {{ property.maxGuests }} voyageurs max
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-[#222222]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                        Wifi inclus
+                    </div>
+                    <div class="flex items-center gap-3 text-sm text-[#222222]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        {{ property.propertyType|capitalize }}
+                    </div>
+                    {% if property.checkinTime %}
+                        <div class="flex items-center gap-3 text-sm text-[#222222]">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Check-in {{ property.checkinTime|date('H:i') }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:sticky lg:top-28 self-start">
+            <form action="{{ path('property_book', { id: property.id }) }}" method="post"
+                  class="rounded-2xl border border-[#DDDDDD] p-6 shadow-soft">
+
+                <div class="flex items-end justify-between mb-5">
+                    <div>
+                        <span class="text-xl font-semibold text-[#222222]">{{ property.pricePerNight|number_format(0, ',', ' ') }}€</span>
+                        <span class="text-[#717171]"> nuit</span>
+                    </div>
+                    <div class="flex items-center gap-1 text-sm text-[#222222]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span class="font-medium underline">Nouveau</span>
+                    </div>
+                </div>
+
+                <div class="mb-3 overflow-hidden rounded-xl border border-[#222222]">
+                    <div class="grid grid-cols-2 divide-x divide-[#DDDDDD]">
+                        <label class="block p-3 hover:bg-[#F7F7F7] cursor-pointer">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-[#222222]">Arrivée</p>
+                            <input type="date" name="checkin_date" id="checkin_date" required
+                                   class="mt-0.5 w-full border-0 p-0 text-sm text-[#222222] bg-transparent focus:outline-none focus:ring-0">
+                        </label>
+                        <label class="block p-3 hover:bg-[#F7F7F7] cursor-pointer">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-[#222222]">Départ</p>
+                            <input type="date" name="checkout_date" id="checkout_date" required
+                                   class="mt-0.5 w-full border-0 p-0 text-sm text-[#222222] bg-transparent focus:outline-none focus:ring-0">
+                        </label>
+                    </div>
+                    <label class="block border-t border-[#DDDDDD] p-3 hover:bg-[#F7F7F7] cursor-pointer">
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-[#222222]">Voyageurs</p>
+                        <input type="number" name="guests_count" id="guests_count"
+                               min="1" max="{{ property.maxGuests }}" value="1" required
+                               class="mt-0.5 w-full border-0 p-0 text-sm text-[#222222] bg-transparent focus:outline-none focus:ring-0">
+                    </label>
+                </div>
+
+                <button type="submit"
+                        class="w-full rounded-xl bg-gradient-to-r from-coral-500 to-coral-600 py-3.5 font-semibold text-white hover:from-coral-600 hover:to-coral-600 transition">
+                    Réserver
+                </button>
+                <p class="mt-3 text-center text-sm text-[#717171]">Aucun montant ne sera débité pour le moment</p>
+
+                <div class="mt-5 space-y-3 text-sm" id="price-breakdown">
+                    <div class="flex justify-between text-[#222222]">
+                        <span class="underline" id="nights-label">{{ property.pricePerNight }}€ × 1 nuit</span>
+                        <span id="nights-total">{{ property.pricePerNight }}€</span>
+                    </div>
+                    {% if property.cleaningFee %}
+                        <div class="flex justify-between text-[#222222]">
+                            <span class="underline">Frais de ménage</span>
+                            <span>{{ property.cleaningFee }}€</span>
+                        </div>
+                    {% endif %}
+                    {% if property.securityDeposit %}
+                        <div class="flex justify-between text-[#222222]">
+                            <span class="underline">Caution</span>
+                            <span>{{ property.securityDeposit }}€</span>
+                        </div>
+                    {% endif %}
+                    <div class="flex justify-between border-t border-[#DDDDDD] pt-3 font-semibold text-[#222222]">
+                        <span>Total avant taxes</span>
+                        <span id="grand-total">{{ property.pricePerNight }}€</span>
+                    </div>
+                </div>
+            </form>
+
+            <div class="mt-4 flex items-center justify-center gap-2 text-sm text-[#717171]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                Votre paiement est sécurisé par Airstay
+            </div>
+
+            <script>
+            (function() {
+                const pricePerNight = {{ property.pricePerNight }};
+                const cleaningFee   = {{ property.cleaningFee ?? 0 }};
+                const checkinInput  = document.getElementById('checkin_date');
+                const checkoutInput = document.getElementById('checkout_date');
+
+                function update() {
+                    const checkin  = new Date(checkinInput.value);
+                    const checkout = new Date(checkoutInput.value);
+                    if (!checkinInput.value || !checkoutInput.value || checkout <= checkin) return;
+
+                    const nights = Math.round((checkout - checkin) / 86400000);
+                    const nightsTotal = nights * pricePerNight;
+                    const grandTotal  = nightsTotal + cleaningFee;
+
+                    document.getElementById('nights-label').textContent =
+                        pricePerNight + '€ × ' + nights + ' nuit' + (nights > 1 ? 's' : '');
+                    document.getElementById('nights-total').textContent = nightsTotal + '€';
+                    document.getElementById('grand-total').textContent  = grandTotal  + '€';
+
+                    checkoutInput.min = checkinInput.value;
+                }
+
+                checkinInput.addEventListener('change', function() {
+                    checkoutInput.min = this.value;
+                    update();
+                });
+                checkoutInput.addEventListener('change', update);
+            })();
+            </script>
+        </div>
+    </div>
+</div>
+{% endblock %}

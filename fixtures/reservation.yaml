@@ -1,0 +1,53 @@
+App\Entity\User:
+  guest_user_1:
+    email: guest1@example.com
+    passwordHash: 'dev-password-hash-guest-1'
+    phone: '+33620000001'
+    status: active
+    isEmailVerified: true
+    preferredLanguage: fr
+    preferredCurrency: EUR
+
+App\Entity\Reservation:
+  reservation_annecy_confirmed:
+    property: '@property_annecy_lake'
+    guest: '@guest_user_1'
+    checkinDate: '<dateTimeBetween("-30 days", "-20 days")>'
+    checkoutDate: '<dateTimeBetween("-19 days", "-15 days")>'
+    guestsCount: 4
+    status: confirmed
+    totalPrice: 925.00
+    cleaningFee: 35.00
+    serviceFee: 55.00
+    securityDeposit: 300.00
+    currency: EUR
+    createdAt: '<dateTimeBetween("-35 days", "-31 days")>'
+
+  reservation_bordeaux_completed:
+    property: '@property_bordeaux_loft'
+    guest: '@guest_user_1'
+    checkinDate: '<dateTimeBetween("-60 days", "-50 days")>'
+    checkoutDate: '<dateTimeBetween("-49 days", "-45 days")>'
+    guestsCount: 2
+    status: completed
+    totalPrice: 596.00
+    cleaningFee: 28.00
+    serviceFee: 36.00
+    securityDeposit: 250.00
+    currency: EUR
+    createdAt: '<dateTimeBetween("-65 days", "-61 days")>'
+
+  reservation_biarritz_cancelled:
+    property: '@property_biarritz_house'
+    guest: '@guest_user_1'
+    checkinDate: '<dateTimeBetween("-10 days", "-5 days")>'
+    checkoutDate: '<dateTimeBetween("-4 days", "-1 days")>'
+    guestsCount: 6
+    status: cancelled
+    totalPrice: 1100.00
+    cleaningFee: 40.00
+    serviceFee: 66.00
+    securityDeposit: 400.00
+    currency: EUR
+    cancellationReason: Changement de programme de dernière minute.
+    createdAt: '<dateTimeBetween("-15 days", "-11 days")>'

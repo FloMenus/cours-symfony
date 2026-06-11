@@ -1,0 +1,85 @@
+{% extends 'user/layout.html.twig' %}
+
+{% block title %}Voyages · Airstay{% endblock %}
+
+{% block user_header %}
+    {% include 'user/partials/header.html.twig' %}
+{% endblock %}
+
+{% block user_content %}
+<div class="mx-auto max-w-[1120px] px-6 py-10 lg:px-10">
+
+    <h1 class="text-3xl font-semibold text-[#222222] mb-6">Voyages</h1>
+
+    {% set upcoming = reservations|filter(r => r.status in ['confirmed', 'pending']) %}
+    {% set past     = reservations|filter(r => r.status == 'completed') %}
+    {% set cancelled = reservations|filter(r => r.status == 'cancelled') %}
+
+    <div class="flex gap-0 border-b border-[#DDDDDD] mb-8" x-data="{ tab: 'upcoming' }">
+        <button @click="tab = 'upcoming'"
+                :class="tab === 'upcoming' ? 'border-b-2 border-[#222222] text-[#222222]' : 'text-[#717171]'"
+                class="pb-3 pr-6 text-sm font-semibold transition-colors">
+            À venir
+            {% if upcoming|length > 0 %}<span class="ml-1 text-xs">({{ upcoming|length }})</span>{% endif %}
+        </button>
+        <button @click="tab = 'past'"
+                :class="tab === 'past' ? 'border-b-2 border-[#222222] text-[#222222]' : 'text-[#717171]'"
+                class="pb-3 px-6 text-sm font-semibold transition-colors">
+            Passés
+        </button>
+        <button @click="tab = 'cancelled'"
+                :class="tab === 'cancelled' ? 'border-b-2 border-[#222222] text-[#222222]' : 'text-[#717171]'"
+                class="pb-3 px-6 text-sm font-semibold transition-colors">
+            Annulés
+        </button>
+    </div>
+
+    {% macro reservation_row(reservation) %}
+        <a href="{{ path('reservation_show', { id: reservation.id }) }}"
+           class="flex gap-5 rounded-2xl border border-[#DDDDDD] p-5 hover:shadow-md transition-shadow">
+            <div class="h-28 w-28 shrink-0 rounded-xl bg-[#EBEBEB] flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-[#AAAAAA]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <div class="flex flex-1 items-start justify-between">
+                <div>
+                    <p class="font-semibold text-[#222222]">{{ reservation.property.title }}</p>
+                    <p class="mt-1 text-sm text-[#717171]">{{ reservation.property.propertyType|capitalize }}</p>
+                    <p class="mt-2 text-sm text-[#717171]">
+                        {{ reservation.checkinDate|date('d/m/Y') }} – {{ reservation.checkoutDate|date('d/m/Y') }}
+                    </p>
+                    <p class="text-sm text-[#717171]">{{ reservation.guestsCount }} voyageur{{ reservation.guestsCount > 1 ? 's' : '' }}</p>
+                </div>
+                <div class="text-right shrink-0">
+                    <p class="font-semibold text-[#222222]">{{ reservation.totalPrice }}€</p>
+                    <span class="mt-1 inline-block rounded-full px-3 py-1 text-xs font-medium
+                        {% if reservation.status == 'confirmed' %}bg-green-50 text-green-700
+                        {% elseif reservation.status == 'completed' %}bg-[#F7F7F7] text-[#717171]
+                        {% elseif reservation.status == 'cancelled' %}bg-red-50 text-red-500
+                        {% else %}bg-yellow-50 text-yellow-600{% endif %}">
+                        {{ reservation.status|capitalize }}
+                    </span>
+                </div>
+            </div>
+        </a>
+    {% endmacro %}
+
+    {% if reservations is empty %}
+        <div class="py-20 text-center">
+            <p class="text-xl font-semibold text-[#222222]">Pas encore de voyages</p>
+            <p class="mt-2 text-[#717171]">Il est temps de commencer à planifier votre prochain séjour.</p>
+            <a href="{{ path('home') }}" class="mt-6 inline-block rounded-xl bg-gradient-to-r from-coral-500 to-coral-600 px-6 py-3 text-sm font-semibold text-white hover:from-coral-600 hover:to-coral-600 transition">
+                Explorer des logements
+            </a>
+        </div>
+    {% else %}
+        <div class="space-y-4">
+            {% for reservation in reservations %}
+                {{ _self.reservation_row(reservation) }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

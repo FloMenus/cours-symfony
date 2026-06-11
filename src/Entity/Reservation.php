@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 #[ORM\Table(name: 'reservations')]
@@ -17,38 +18,54 @@ class Reservation
 {
     use UuidEntityTrait;
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Property $property = null;
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $guest = null;
 
+    #[Assert\NotNull]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $checkinDate = null;
 
+    #[Assert\NotNull]
+    #[Assert\GreaterThan(propertyPath: 'checkinDate')]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeImmutable $checkoutDate = null;
 
+    #[Assert\NotNull]
+    #[Assert\Positive]
     #[ORM\Column]
     private ?int $guestsCount = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 50)]
     #[ORM\Column(length: 50)]
     private ?string $status = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $totalPrice = null;
 
+    #[Assert\PositiveOrZero]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $cleaningFee = null;
 
+    #[Assert\PositiveOrZero]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $serviceFee = null;
 
+    #[Assert\PositiveOrZero]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
     private ?string $securityDeposit = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Currency]
     #[ORM\Column(length: 10)]
     private ?string $currency = null;
 

@@ -1,0 +1,52 @@
+{% extends 'user/layout.html.twig' %}
+
+{% block title %}Réservation confirmée · Airstay{% endblock %}
+
+{% block user_header %}
+    {% include 'user/partials/header.html.twig' %}
+{% endblock %}
+
+{% block user_content %}
+<div class="mx-auto max-w-[600px] px-6 py-16 text-center lg:px-10">
+
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-coral-100 mb-6">
+        <svg class="w-8 h-8 text-coral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+    </div>
+
+    <h1 class="text-2xl font-semibold text-[#222222]">Votre réservation est confirmée !</h1>
+    <p class="mt-2 text-[#717171]">Préparez vos bagages pour <strong class="text-[#222222]">{{ reservation.property.title }}</strong>.</p>
+
+    <div class="mt-8 rounded-xl border border-[#DDDDDD] p-6 text-left space-y-4 text-sm">
+        <div class="flex justify-between text-[#222222]">
+            <span class="text-[#717171]">Arrivée</span>
+            <strong>{{ reservation.checkinDate|date('d/m/Y') }}</strong>
+        </div>
+        <div class="flex justify-between text-[#222222] border-t border-[#DDDDDD] pt-4">
+            <span class="text-[#717171]">Départ</span>
+            <strong>{{ reservation.checkoutDate|date('d/m/Y') }}</strong>
+        </div>
+        <div class="flex justify-between text-[#222222] border-t border-[#DDDDDD] pt-4">
+            <span class="text-[#717171]">Voyageurs</span>
+            <strong>{{ reservation.guestsCount }}</strong>
+        </div>
+        <div class="flex justify-between text-[#222222] border-t border-[#DDDDDD] pt-4">
+            <span class="font-semibold">Total</span>
+            <strong>{{ reservation.totalPrice }}€</strong>
+        </div>
+    </div>
+
+    <div class="mt-8 flex justify-center gap-4">
+        <a href="{{ path('reservation_list') }}"
+           class="rounded-lg border border-[#222222] px-6 py-3 text-sm font-semibold text-[#222222] hover:bg-[#F7F7F7] transition">
+            Voir mes voyages
+        </a>
+        <a href="{{ path('home') }}"
+           class="rounded-lg bg-gradient-to-r from-coral-500 to-coral-600 px-6 py-3 text-sm font-semibold text-white hover:from-coral-600 hover:to-coral-600 transition">
+            Explorer plus de logements
+        </a>
+    </div>
+
+</div>
+{% endblock %}
